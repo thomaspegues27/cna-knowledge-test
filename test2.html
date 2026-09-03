@@ -1,0 +1,337 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CNA Practice Test #2</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:auto;
+padding:18px;
+background:#f4f6f8;
+}
+.card{
+background:white;
+padding:18px;
+margin:12px 0;
+border-radius:12px;
+}
+label{
+display:block;
+padding:7px;
+}
+button{
+padding:13px 18px;
+margin:8px;
+border:0;
+border-radius:9px;
+background:#111;
+color:white;
+font-size:16px;
+}
+.wrong{background:#ffe5e5;}
+.right{background:#e7f7e7;}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>CNA Knowledge Practice Test #2</h1>
+<p><b>70 Questions • Passing Score: 73%</b></p>
+<p>Choose the best answer for each question. Tap <b>Submit Test</b> when finished.</p>
+</div>
+
+<div id="quiz"></div>
+
+<div class="card">
+<button onclick="grade()">Submit Test</button>
+<button onclick="location.reload()">Retake Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+
+const Q=[
+
+["A resident who can feed herself slowly should be encouraged to:",
+["Be fed by the CNA to save time","Feed herself as independently as possible","Skip the meal if she is too slow","Eat only finger foods"],1],
+
+["When assisting with range-of-motion exercises, the CNA should:",
+["Force the joint until it moves fully","Move the joint slowly and gently","Exercise only the strongest side","Continue even if the resident reports pain"],1],
+
+["A resident begins to fall while walking. The CNA should first:",
+["Try to hold the resident upright","Ease the resident to the floor while protecting the head","Leave to find the nurse","Pull the resident by the arms"],1],
+
+["Which pulse is commonly taken at the wrist?",
+["Apical","Carotid","Radial","Femoral"],2],
+
+["When counting respirations, one respiration includes:",
+["One inhalation only","One exhalation only","One inhalation and one exhalation","Two inhalations"],2],
+
+["Before transferring a resident into a wheelchair, the CNA should:",
+["Unlock the wheelchair brakes","Lock the wheelchair brakes","Raise the footrests under the resident's feet","Place the wheelchair far from the bed"],1],
+
+["A resident reports new chest pain. The CNA should:",
+["Tell the resident to rest and check later","Report it to the nurse immediately","Give the resident medication","Offer food"],1],
+
+["A urinary drainage bag should be kept:",
+["Above the bladder","Below the bladder and off the floor","On the resident's bed","At the same height as the bladder"],1],
+
+["When measuring urine, the CNA should read the amount:",
+["At eye level on a flat surface","While holding the container in the air","From above the container","Before pouring it into a graduate"],0],
+
+["A gait belt is primarily used to:",
+["Restrain a resident","Assist with safe transfers and walking","Measure the waist","Prevent all falls"],1],
+
+["For a resident at risk for aspiration, meals should generally be given with the resident:",
+["Lying flat","Sitting upright","On the stomach","With the head lower than the feet"],1],
+
+["Which observation should be reported promptly?",
+["Resident requests a different TV channel","Sudden weakness on one side","Resident naps after lunch","Resident asks for water"],1],
+
+["Good body mechanics include:",
+["Twisting while lifting","Keeping the load close to the body","Bending at the waist","Keeping feet together"],1],
+
+["Frequent repositioning helps reduce the risk of:",
+["Pressure injuries","Hearing loss","Cataracts","Tooth decay"],0],
+
+["When speaking with a resident who has hearing loss, the CNA should:",
+["Face the resident and speak clearly","Shout from the doorway","Speak rapidly","Avoid eye contact"],0],
+
+["Before touching a visually impaired resident, the CNA should:",
+["Approach silently","Identify oneself and explain what will happen","Turn off all lights","Move the resident's belongings"],1],
+
+["When a resident has weakness on one side, the CNA should follow:",
+["Another resident's routine","The resident's care plan","Whatever method is fastest","Instructions from visitors"],1],
+
+["The best way to communicate with a confused resident is to:",
+["Use short, calm, simple statements","Ask several questions at once","Argue about incorrect statements","Speak loudly"],0],
+
+["Active listening includes:",
+["Interrupting often","Giving full attention","Finishing the resident's sentences","Changing the subject"],1],
+
+["If a resident does not understand an instruction, the CNA should:",
+["Repeat it more loudly","Rephrase it calmly","Ignore the resident","Report refusal immediately"],1],
+
+["Which is an example of nonverbal communication?",
+["A written note","Facial expression","A telephone call","A spoken question"],1],
+
+["When reporting to the nurse, information should be:",
+["Objective and accurate","Based on guesses","Exaggerated","Shared with everyone"],0],
+
+["An upset resident says, 'Nobody listens to me.' The CNA should:",
+["Listen and allow the resident to express feelings","Tell the resident to stop complaining","Walk away","Promise something outside the CNA's authority"],0],
+
+["Which is objective information?",
+["Resident says, 'I feel dizzy'","Temperature is 102°F","Resident says, 'My stomach hurts'","Resident says, 'I am tired'"],1],
+
+["Which is subjective information?",
+["Pulse is 88","Urine output is 300 mL","Resident says, 'My back hurts'","Skin is red over the heel"],2],
+
+["Intake and output records help monitor:",
+["Fluid balance","Hair growth","Hearing","Vision"],0],
+
+["A CNA should document care:",
+["Accurately and according to facility policy","Before providing it","Only at the end of the week","Using guesses if unsure"],0],
+
+["A sudden change in a resident's mental status should be:",
+["Ignored as normal aging","Reported promptly","Discussed with other residents","Treated by the CNA"],1],
+
+["A CNA caring for a resident with diabetes should:",
+["Change insulin doses","Observe and report unusual changes","Prescribe a diabetic diet","Diagnose low blood sugar"],1],
+
+["A resident develops difficulty breathing. The CNA should:",
+["Report it immediately","Wait until the next shift","Offer candy","Have the resident walk"],0],
+
+["Edema means:",
+["Swelling caused by fluid buildup","Loss of hearing","Dry mouth","Low body temperature"],0],
+
+["Which resident is at increased risk for pressure injuries?",
+["A resident who is immobile","A resident who walks daily","A resident who reads often","A resident who wears glasses"],0],
+
+["The most important routine action for preventing spread of infection is:",
+["Hand hygiene","Wearing two gowns","Opening windows","Using air freshener"],0],
+
+["Gloves are required when the CNA expects contact with:",
+["Blood or body fluids","Clean clothing","A meal tray","A television remote"],0],
+
+["After removing gloves, the CNA should:",
+["Perform hand hygiene","Touch the face","Reuse the gloves","Put gloves in a pocket"],0],
+
+["Soiled linen should be:",
+["Held away from the uniform and placed in the proper container","Shaken before bagging","Placed on the floor","Carried against the body"],0],
+
+["Standard precautions are used:",
+["Only with residents known to have infections","With all residents as appropriate","Only in isolation rooms","Only during bathing"],1],
+
+["During female perineal care, cleansing strokes should go:",
+["Back to front","Front to back","In circles","In any direction"],1],
+
+["After use, disposable gloves should be:",
+["Washed for reuse","Discarded in the appropriate container","Saved for later","Shared with another CNA"],1],
+
+["With contaminated gloves on, the CNA should avoid touching:",
+["Clean equipment and surfaces","Soiled linen","The used washcloth","The drainage bag being emptied"],0],
+
+["Good cough etiquette includes:",
+["Covering coughs and performing hand hygiene","Coughing into the hands and touching equipment","Removing a mask to cough","Sharing tissues"],0],
+
+["When hands are visibly soiled, the CNA should use:",
+["Soap and water","Lotion only","Gloves only","A dry towel"],0],
+
+["When a resident is anxious, the CNA should:",
+["Remain calm and listen","Tell the resident there is nothing to worry about","Argue","Leave immediately"],0],
+
+["When a resident talks about feelings, the CNA should:",
+["Listen without judging","Give personal medical advice","Change the subject","Tell other residents"],0],
+
+["A new or unusual behavior should be:",
+["Observed and reported","Kept secret","Diagnosed by the CNA","Ignored"],0],
+
+["When a resident with dementia becomes agitated, the CNA should:",
+["Use a calm voice and redirect","Argue with the resident","Use restraints without an order","Shout instructions"],0],
+
+["During a bed bath, privacy is maintained by:",
+["Keeping the resident covered except for the area being washed","Leaving the door open","Removing all covers","Allowing visitors to remain without permission"],0],
+
+["Regular oral care helps:",
+["Keep the mouth clean and comfortable","Prevent every illness","Replace dental visits","Improve hearing"],0],
+
+["Before shaving a resident, the CNA should:",
+["Follow the care plan and safety precautions","Use any razor available","Shave without explaining","Ignore bleeding risk"],0],
+
+["When dressing a resident with one-sided weakness, the CNA generally dresses the:",
+["Weak side first","Strong side first","Legs only","Side closest to the CNA first"],0],
+
+["When undressing a resident with one-sided weakness, the CNA generally removes clothing from the:",
+["Strong side first","Weak side first","Head first in all cases","Side nearest the door"],0],
+
+["Residents have the right to:",
+["Privacy during care","Read other residents' records","Receive another resident's medication","Ignore all facility safety rules"],0],
+
+["Before entering a resident's room, the CNA should:",
+["Knock and wait for permission when appropriate","Enter without warning","Call another resident","Turn off the hallway light"],0],
+
+["If a resident refuses care, the CNA should:",
+["Respect the refusal and report it","Force the care","Threaten the resident","Hide the refusal"],0],
+
+["Resident health information should be shared:",
+["Only with appropriate members of the care team","With friends","On social media","With other residents"],0],
+
+["Residents should be allowed choices about:",
+["Their care and daily routine when possible","Other residents' medications","Staff schedules","Facility payroll"],0],
+
+["A CNA should perform tasks:",
+["Within training, job description, and the care plan","Outside scope if short-staffed","Only when family requests them","Without asking when unsure"],0],
+
+["A new skin tear should be:",
+["Reported to the nurse","Covered and never mentioned","Diagnosed by the CNA","Ignored if small"],0],
+
+["Suspected abuse should be:",
+["Reported immediately according to policy and law","Investigated secretly by the CNA","Posted online","Ignored without proof"],0],
+
+["If asked to perform a task the CNA has not been trained to do, the CNA should:",
+["Seek guidance and stay within scope","Attempt it anyway","Ask another resident","Pretend it was completed"],0],
+
+["An important CNA responsibility is to:",
+["Observe residents and report changes","Diagnose disease","Prescribe medicine","Change medical orders"],0],
+
+["Before a wheelchair transfer, the footrests should generally be:",
+["Moved out of the way","Placed under the resident's feet while standing","Removed permanently","Left wherever they are"],0],
+
+["After providing care, the call light should be:",
+["Within the resident's reach","At the foot of the bed","Outside the room","In the CNA's pocket"],0],
+
+["After care, the bed should usually be left:",
+["In the lowest safe position","At the highest position","With wheels unlocked","Away from the wall regardless of plan"],0],
+
+["A spill on the floor should be:",
+["Addressed promptly to prevent falls","Left for housekeeping later","Covered with a towel and ignored","Walked around"],0],
+
+["If a fire occurs, the CNA should:",
+["Follow the facility's emergency/fire procedure","Use the elevator immediately","Open every door","Leave residents behind"],0],
+
+["For a resident identified as a fall risk, the CNA should:",
+["Follow care-plan safety measures","Remove the call light","Encourage walking alone","Keep the bed high"],0],
+
+["Before helping a resident stand, the CNA should check:",
+["Safe footwear and the environment","The television volume","The meal menu","The roommate's chart"],0],
+
+["If equipment is broken, the CNA should:",
+["Stop using it and report it","Try to repair electrical parts","Continue using it carefully","Hide it"],0],
+
+["When oxygen is in use, the CNA should:",
+["Keep flames and smoking materials away","Use petroleum jelly near the oxygen","Allow smoking near an open window","Place oxygen near a heater"],0]
+
+];
+
+const quiz=document.getElementById("quiz");
+
+Q.forEach((x,i)=>{
+let d=document.createElement("div");
+d.className="card";
+d.id="q"+i;
+
+d.innerHTML=
+"<b>"+(i+1)+". "+x[0]+"</b>"+
+x[1].map((a,j)=>
+'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+
+String.fromCharCode(65+j)+". "+a+"</label>"
+).join("");
+
+quiz.appendChild(d);
+});
+
+function grade(){
+
+let score=0;
+let missed=[];
+
+Q.forEach((x,i)=>{
+
+let selected=document.querySelector('input[name="q'+i+'"]:checked');
+let card=document.getElementById("q"+i);
+
+card.classList.remove("right","wrong");
+
+if(selected && Number(selected.value)===x[2]){
+score++;
+card.classList.add("right");
+}
+else{
+card.classList.add("wrong");
+
+missed.push(
+(i+1)+". "+x[0]+
+" — Correct answer: "+
+String.fromCharCode(65+x[2])+". "+x[1][x[2]]
+);
+}
+
+});
+
+let percent=(score/70)*100;
+let result=document.getElementById("result");
+
+result.innerHTML=
+"<h2>Score: "+score+"/70 ("+
+percent.toFixed(1)+"%) — "+
+(percent>=73?"PASS ✅":"KEEP PRACTICING ❌")+
+"</h2>"+
+(missed.length
+?"<h3>Review Your Missed Questions</h3><p>"+
+missed.join("<br><br>")+"</p>"
+:"<h3>70/70 — Perfect Score! 🎉</h3>");
+
+window.scrollTo(0,document.body.scrollHeight);
+
+}
+
+</script>
+
+</body>
+</html>
