@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNA Practice Test #3</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  margin: 0;
+  padding: 15px;
+  color: #222;
+}
+
+.container {
+  max-width: 850px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+}
+
+h1 {
+  text-align: center;
+  color: #174ea6;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.progress {
+  background: #ddd;
+  height: 14px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #174ea6;
+}
+
+.question {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.question p {
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+label:hover {
+  background: #e8eef9;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background: #174ea6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #0d3f91;
+}
+
+#result {
+  margin-top: 25px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.review {
+  margin-top: 20px;
+}
+
+.correct {
+  background: #d9f5df;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.incorrect {
+  background: #ffdede;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>CNA Knowledge Practice Test #3</h1>
+
+<div class="subtitle">
+70 Questions • Passing Score: 73% • You need at least 52 correct
+</div>
+
+<div class="progress">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<form id="quizForm"></form>
+
+<button type="button" onclick="submitTest()">Submit Test</button>
+
+<div id="result"></div>
+<div id="review" class="review"></div>
+
+<button type="button" id="retakeButton" onclick="retakeTest()" style="display:none;">
+Retake Test
+</button>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+q:"1. The main goal of restorative nursing care is to:",
+o:["Do everything for the resident","Maintain or improve the resident's highest level of independence","Keep the resident in bed","Prevent the resident from making choices"],
+a:1
+},
+
+{
+q:"2. Which change is commonly associated with normal aging?",
+o:["Sudden confusion","Slower movement and reaction time","High fever","Severe chest pain"],
+a:1
+},
+
+{
+q:"3. A resident who can feed himself slowly should be encouraged to:",
+o:["Let the CNA feed him","Eat independently with assistance only as needed","Skip the meal","Use a feeding tube"],
+a:1
+},
+
+{
+q:"4. The radial pulse is normally taken at the:",
+o:["Neck","Wrist","Ankle","Chest"],
+a:1
+},
+
+{
+q:"5. One respiration consists of:",
+o:["One inhalation only","One exhalation only","One inhalation and one exhalation","Two inhalations"],
+a:2
+},
+
+{
+q:"6. Before taking a resident's temperature, the CNA should first:",
+o:["Identify the resident","Give water","Raise the bed completely","Apply lotion"],
+a:0
+},
+
+{
+q:"7. When counting respirations, the CNA should:",
+o:["Tell the resident to breathe faster","Count immediately after taking the pulse when possible","Ask the resident to hold their breath","Count for five seconds"],
+a:1
+},
+
+{
+q:"8. If a resident reports sudden severe chest pain, the CNA should:",
+o:["Wait until the next round","Report it immediately to the nurse","Offer food","Help the resident sleep"],
+a:1
+},
+
+{
+q:"9. A urinary drainage bag should always be kept:",
+o:["Above the bladder","Below the bladder","On the bed","On the resident's lap"],
+a:1
+},
+
+{
+q:"10. When measuring urine output, the container should be:",
+o:["Held above eye level","Placed on a flat surface and read at eye level","Placed on the floor","Estimated without measuring"],
+a:1
+},
+
+{
+q:"11. Which is the best way to prevent pressure injuries?",
+o:["Keep the resident in one position","Reposition according to the care plan","Massage reddened bony areas vigorously","Limit fluids"],
+a:1
+},
+
+{
+q:"12. A CNA notices a new red area on a resident's heel that does not fade. The CNA should:",
+o:["Ignore it","Report it to the nurse","Cover it with powder","Massage it"],
+a:1
+},
+
+{
+q:"13. When transferring a resident from bed to wheelchair, the CNA should first:",
+o:["Unlock the wheelchair","Lock the wheelchair brakes","Remove the resident's shoes","Raise the bed rail on both sides"],
+a:1
+},
+
+{
+q:"14. A gait belt is used mainly to:",
+o:["Restrict a resident","Assist with safe transfers and walking","Hold clothing in place","Prevent urination"],
+a:1
+},
+
+{
+q:"15. If a resident becomes dizzy while walking, the CNA should:",
+o:["Tell the resident to continue walking","Protect the resident from falling and call for help","Walk away","Pull the resident upright by the arms"],
+a:1
+},
+
+{
+q:"16. The safest position for a resident who is eating is:",
+o:["Flat on the back","Upright","Trendelenburg","Lying on the stomach"],
+a:1
+},
+
+{
+q:"17. When speaking with a resident who has hearing loss, the CNA should:",
+o:["Shout from across the room","Face the resident and speak clearly","Speak very quickly","Cover their mouth"],
+a:1
+},
+
+{
+q:"18. When entering the room of a resident with vision loss, the CNA should:",
+o:["Stay silent","Identify themselves and explain what they are doing","Move furniture without telling the resident","Turn off all lights"],
+a:1
+},
+
+{
+q:"19. A confused resident asks the same question repeatedly. The CNA should:",
+o:["Respond calmly and repeat the answer as needed","Tell the resident to stop asking","Ignore the resident","Argue with the resident"],
+a:0
+},
+
+{
+q:"20. Active listening includes:",
+o:["Interrupting often","Giving the resident full attention","Changing the subject","Looking at your phone"],
+a:1
+},
+
+{
+q:"21. If a resident does not understand what the CNA said, the CNA should:",
+o:["Repeat the same words louder","Rephrase the message calmly","Walk away","Tell another resident"],
+a:1
+},
+
+{
+q:"22. Which is an example of nonverbal communication?",
+o:["A written care plan","Facial expression","Telephone call","A medication order"],
+a:1
+},
+
+{
+q:"23. Which statement is objective information?",
+o:["I feel weak","The resident looks bad","Temperature is 101.4°F","I think the resident is tired"],
+a:2
+},
+
+{
+q:"24. Which statement is subjective information?",
+o:["Blood pressure is 120/80","Resident says, 'My stomach hurts'","Urine output is 300 mL","Pulse is 76"],
+a:1
+},
+
+{
+q:"25. Accurate documentation should be:",
+o:["Based on guesses","Completed according to facility policy and facts","Changed to make the resident look better","Shared with visitors"],
+a:1
+},
+
+{
+q:"26. A sudden change in a resident's mental status should be:",
+o:["Reported promptly","Ignored until tomorrow","Discussed with another resident","Posted in the break room"],
+a:0
+},
+
+{
+q:"27. Intake and output records are used mainly to monitor:",
+o:["Sleep","Fluid balance","Hair growth","Hearing ability"],
+a:1
+},
+
+{
+q:"28. A CNA caring for a resident with diabetes should:",
+o:["Change insulin doses","Observe and report changes","Diagnose low blood sugar","Prescribe a diet"],
+a:1
+},
+
+{
+q:"29. Edema means:",
+o:["Swelling caused by fluid buildup","A skin tear","Loss of hearing","Low temperature"],
+a:0
+},
+
+{
+q:"30. A resident suddenly has difficulty breathing. The CNA's first action should be to:",
+o:["Report the change immediately","Offer a snack","Leave the resident alone","Wait 30 minutes"],
+a:0
+},
+
+{
+q:"31. Which resident is at greatest risk for a pressure injury?",
+o:["A resident who walks often","A resident who is unable to move independently","A resident who reads often","A resident who wears glasses"],
+a:1
+},
+
+{
+q:"32. The single most important action to prevent the spread of infection is:",
+o:["Hand hygiene","Opening windows","Changing shoes","Wearing perfume"],
+a:0
+},
+
+{
+q:"33. Gloves should be worn when:",
+o:["There may be contact with blood or body fluids","Talking to a resident","Walking in the hallway","Making an unoccupied bed"],
+a:0
+},
+
+{
+q:"34. After removing gloves, the CNA should:",
+o:["Wash or sanitize hands","Touch the face","Reuse the gloves","Put gloves in a pocket"],
+a:0
+},
+
+{
+q:"35. When handling soiled linen, the CNA should:",
+o:["Shake it in the air","Hold it away from the uniform and place it in the proper container","Place it on the floor","Carry it against the body"],
+a:1
+},
+
+{
+q:"36. Standard precautions should be used:",
+o:["Only with residents known to have infections","With all residents as appropriate","Only in the hospital","Only when the nurse says so"],
+a:1
+},
+
+{
+q:"37. Female perineal care should be performed:",
+o:["Back to front","Front to back","In a circular motion from anus forward","Without gloves"],
+a:1
+},
+
+{
+q:"38. During perineal care, each cleansing stroke should use:",
+o:["The same dirty part of the washcloth","A clean area of the washcloth","A dry paper towel","No water"],
+a:1
+},
+
+{
+q:"39. Disposable gloves should be:",
+o:["Washed and reused","Discarded after use","Shared between residents","Stored in the uniform pocket after use"],
+a:1
+},
+
+{
+q:"40. A CNA wearing contaminated gloves should avoid touching:",
+o:["Clean equipment and surfaces","Body fluids","Soiled linen","A bedpan being emptied"],
+a:0
+},
+
+{
+q:"41. Proper cough etiquette includes:",
+o:["Coughing into the hands without washing","Covering coughs and performing hand hygiene","Coughing toward another person","Removing masks in crowded areas"],
+a:1
+},
+
+{
+q:"42. When hands are visibly soiled, the CNA should use:",
+o:["Soap and water","Lotion only","Gloves instead of washing","A dry towel only"],
+a:0
+},
+
+{
+q:"43. Before putting on gloves, the CNA should:",
+o:["Perform hand hygiene","Touch the resident's face","Open the trash can","Remove the resident's call light"],
+a:0
+},
+
+{
+q:"44. A resident with anxiety is pacing and appears nervous. The CNA should:",
+o:["Speak calmly and remain supportive","Tell the resident to calm down","Laugh about the behavior","Ignore the resident"],
+a:0
+},
+
+{
+q:"45. A resident begins crying after receiving bad news. The CNA should:",
+o:["Listen and allow the resident to express feelings","Immediately leave","Tell the resident others have it worse","Tell the resident not to cry"],
+a:0
+},
+
+{
+q:"46. A CNA notices new aggressive behavior in a usually calm resident. The CNA should:",
+o:["Report the change to the nurse","Argue with the resident","Restrain the resident alone","Ignore it"],
+a:0
+},
+
+{
+q:"47. When a resident with dementia becomes agitated, the CNA should:",
+o:["Use a calm voice and redirect the resident","Raise their voice","Force the resident to cooperate","Punish the resident"],
+a:0
+},
+
+{
+q:"48. During a bed bath, the CNA should:",
+o:["Expose the resident's entire body","Keep the resident covered except for the area being washed","Keep the door open","Skip privacy measures"],
+a:1
+},
+
+{
+q:"49. Oral care is important because it:",
+o:["Promotes comfort and mouth cleanliness","Prevents the resident from talking","Replaces meals","Eliminates the need for dental care"],
+a:0
+},
+
+{
+q:"50. When dressing a resident with weakness on one side, the CNA should dress:",
+o:["The strong side first","The weak side first","Both arms at the same time","The legs only"],
+a:1
+},
+
+{
+q:"51. When undressing a resident with one weak arm, the CNA should remove clothing from:",
+o:["The weak side first","The strong side first","Both sides together","Neither side"],
+a:1
+},
+
+{
+q:"52. Before shaving a resident, the CNA should:",
+o:["Follow the care plan and safety precautions","Use any razor available","Ignore bleeding risk","Share a razor with another resident"],
+a:0
+},
+
+{
+q:"53. A resident has the right to:",
+o:["Privacy during personal care","Have no choices","Be discussed in public areas","Have belongings searched without reason"],
+a:0
+},
+
+{
+q:"54. Before entering a resident's room, the CNA should:",
+o:["Knock and wait for permission when appropriate","Walk in without warning","Shout from the hallway","Turn on the television"],
+a:0
+},
+
+{
+q:"55. If a resident refuses a bath, the CNA should:",
+o:["Force the resident to bathe","Respect the refusal and report it","Threaten the resident","Ignore the care plan"],
+a:1
+},
+
+{
+q:"56. Resident information should be shared:",
+o:["Only with appropriate members of the care team","With friends","On social media","With visitors who ask"],
+a:0
+},
+
+{
+q:"57. Residents should be allowed to make choices about:",
+o:["Their care and daily routine when possible","Other residents' medications","Employee schedules","Facility finances"],
+a:0
+},
+
+{
+q:"58. A CNA should perform tasks:",
+o:["Only within training, job description, and the care plan","Whenever a resident asks, even if untrained","Only when another CNA says so","Outside their scope if busy"],
+a:0
+},
+
+{
+q:"59. If a CNA discovers a new skin tear, the CNA should:",
+o:["Report it to the nurse","Hide it with clothing","Apply medication without an order","Ignore it"],
+a:0
+},
+
+{
+q:"60. Suspected abuse of a resident should be:",
+o:["Reported immediately according to policy and law","Kept secret","Discussed only with friends","Ignored without proof"],
+a:0
+},
+
+{
+q:"61. If a CNA is asked to perform a task they have not been trained to do, the CNA should:",
+o:["Ask for guidance and remain within scope of practice","Guess how to do it","Do it quickly without telling anyone","Ask another resident"],
+a:0
+},
+
+{
+q:"62. The CNA's role includes:",
+o:["Observing residents and reporting changes","Diagnosing disease","Prescribing medication","Changing medical orders"],
+a:0
+},
+
+{
+q:"63. After providing care, the resident's bed should usually be:",
+o:["In the lowest safe position","At its highest setting","Left unlocked","Placed against the door"],
+a:0
+},
+
+{
+q:"64. The call light should be:",
+o:["Within the resident's reach","At the nurses' station","On the floor","Hidden under the bed"],
+a:0
+},
+
+{
+q:"65. A spill is noticed on the floor. The CNA should:",
+o:["Address it promptly to prevent a fall","Walk around it","Wait until the end of the shift","Cover it with paper"],
+a:0
+},
+
+{
+q:"66. During a fire emergency, the CNA should:",
+o:["Follow the facility's emergency procedures","Use the elevator automatically","Open all doors","Leave residents behind"],
+a:0
+},
+
+{
+q:"67. For a resident at risk for falls, the CNA should:",
+o:["Follow the resident's care-plan safety precautions","Remove the call light","Leave the bed high","Encourage slippery socks"],
+a:0
+},
+
+{
+q:"68. Before helping a resident stand, the CNA should check:",
+o:["That footwear and the environment are safe","The television volume","The room temperature only","The resident's hairstyle"],
+a:0
+},
+
+{
+q:"69. If equipment is broken, the CNA should:",
+o:["Stop using it and report it","Keep using it carefully","Hide it","Ask the resident to repair it"],
+a:0
+},
+
+{
+q:"70. When oxygen is in use, the CNA should:",
+o:["Keep flames and smoking materials away","Light candles nearby","Use petroleum products near the oxygen without checking policy","Allow smoking beside the oxygen tank"],
+a:0
+}
+
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+
+  const div = document.createElement("div");
+  div.className = "question";
+
+  let html = `<p>${item.q}</p>`;
+
+  item.o.forEach((choice, i) => {
+    html += `
+      <label>
+        <input type="radio" name="q${index}" value="${i}" onchange="updateProgress()">
+        ${String.fromCharCode(65+i)}. ${choice}
+      </label>
+    `;
+  });
+
+  div.innerHTML = html;
+  form.appendChild(div);
+
+});
+
+
+function updateProgress() {
+
+  let answered = 0;
+
+  questions.forEach((q,index) => {
+    if(document.querySelector(`input[name="q${index}"]:checked`)){
+      answered++;
+    }
+  });
+
+  const percent = (answered / questions.length) * 100;
+
+  document.getElementById("progressBar").style.width = percent + "%";
+}
+
+
+function submitTest() {
+
+  let score = 0;
+  let unanswered = 0;
+  let reviewHTML = "";
+
+  questions.forEach((item,index) => {
+
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+
+    if(!selected){
+      unanswered++;
+      reviewHTML += `
+      <div class="incorrect">
+        <strong>${item.q}</strong><br>
+        You did not answer this question.<br>
+        Correct answer: ${String.fromCharCode(65+item.a)}. ${item.o[item.a]}
+      </div>`;
+      return;
+    }
+
+    const selectedAnswer = parseInt(selected.value);
+
+    if(selectedAnswer === item.a){
+
+      score++;
+
+    } else {
+
+      reviewHTML += `
+      <div class="incorrect">
+        <strong>${item.q}</strong><br>
+        Your answer: ${String.fromCharCode(65+selectedAnswer)}. ${item.o[selectedAnswer]}<br>
+        Correct answer: ${String.fromCharCode(65+item.a)}. ${item.o[item.a]}
+      </div>`;
+
+    }
+
+  });
+
+
+  const percent = ((score / questions.length) * 100).toFixed(1);
+
+  const passed = percent >= 73;
+
+  document.getElementById("result").innerHTML =
+    `${passed ? "✅ PASS" : "❌ NOT PASSED"}<br>
+     Score: ${score}/70 (${percent}%)<br>
+     ${passed ? "Great job!" : "You need at least 52 correct to pass."}`;
+
+
+  if(reviewHTML === ""){
+    reviewHTML = `
+    <div class="correct">
+      Excellent! You answered every question correctly.
+    </div>`;
+  }
+
+  document.getElementById("review").innerHTML =
+    `<h2>Review Missed Questions</h2>` + reviewHTML;
+
+  document.getElementById("retakeButton").style.display = "block";
+
+  window.scrollTo({
+    top: document.getElementById("result").offsetTop,
+    behavior: "smooth"
+  });
+
+}
+
+
+function retakeTest(){
+
+  document.getElementById("quizForm").reset();
+
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("review").innerHTML = "";
+  document.getElementById("retakeButton").style.display = "none";
+
+  document.getElementById("progressBar").style.width = "0%";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+</script>
+
+</body>
+</html>
