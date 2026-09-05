@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNA Practice Test #4</title>
+
+<style>
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  margin:0;
+  padding:15px;
+  color:#222;
+}
+.container{
+  max-width:850px;
+  margin:auto;
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+h1{
+  text-align:center;
+  color:#174ea6;
+}
+.subtitle{
+  text-align:center;
+  margin-bottom:20px;
+}
+.progress{
+  background:#ddd;
+  height:14px;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#174ea6;
+}
+.question{
+  margin-bottom:25px;
+  padding:15px;
+  background:#f8f9fa;
+  border-radius:10px;
+}
+.question p{
+  font-weight:bold;
+}
+label{
+  display:block;
+  padding:8px;
+  margin:5px 0;
+  border-radius:7px;
+  cursor:pointer;
+}
+label:hover{
+  background:#e8eef9;
+}
+button{
+  width:100%;
+  padding:15px;
+  font-size:18px;
+  background:#174ea6;
+  color:white;
+  border:none;
+  border-radius:10px;
+  margin-top:15px;
+}
+#result{
+  margin-top:25px;
+  font-size:22px;
+  font-weight:bold;
+  text-align:center;
+}
+.incorrect{
+  background:#ffdede;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:12px;
+}
+.correct{
+  background:#d9f5df;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:12px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>CNA Knowledge Practice Test #4</h1>
+
+<div class="subtitle">
+70 Questions • Passing Score: 73% • 52 Correct Needed to Pass
+</div>
+
+<div class="progress">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<form id="quizForm"></form>
+
+<button type="button" onclick="submitTest()">Submit Test</button>
+
+<div id="result"></div>
+<div id="review"></div>
+
+<button type="button" id="retakeButton"
+onclick="retakeTest()" style="display:none;">
+Retake Test
+</button>
+
+</div>
+
+<script>
+const questions = [
+
+{
+q:"1. A resident who is able to brush her own hair should be encouraged to:",
+o:["Let staff do it to save time","Do as much as she can independently","Stay in bed","Wait until family visits"],
+a:1
+},
+
+{
+q:"2. Which is an example of a normal age-related change?",
+o:["Slower skin healing","Sudden paralysis","High fever","Severe vomiting"],
+a:0
+},
+
+{
+q:"3. Range-of-motion exercises help:",
+o:["Increase confusion","Maintain joint mobility","Cause stiffness","Replace all walking"],
+a:1
+},
+
+{
+q:"4. When performing passive range of motion, the CNA should:",
+o:["Force the joint past resistance","Move the joint slowly and gently","Move the joint as fast as possible","Continue despite severe pain"],
+a:1
+},
+
+{
+q:"5. The normal method for counting a radial pulse is to place fingers:",
+o:["On the thumb","On the inside of the wrist","Behind the knee","On the forehead"],
+a:1
+},
+
+{
+q:"6. Which pulse finding should be reported?",
+o:["A major change from the resident's normal rate","A pulse taken at the wrist","A regular pulse","A pulse counted for one minute"],
+a:0
+},
+
+{
+q:"7. When counting respirations, the CNA should observe:",
+o:["Chest rise and fall","Eye movements","Hand movement","Foot position"],
+a:0
+},
+
+{
+q:"8. A resident's respirations suddenly become very labored. What should the CNA do?",
+o:["Wait until lunch","Report it immediately","Give medication","Tell the resident to sleep"],
+a:1
+},
+
+{
+q:"9. Before obtaining vital signs, the CNA should:",
+o:["Identify the resident correctly","Ask another resident for the name","Guess based on room number","Skip introduction"],
+a:0
+},
+
+{
+q:"10. A resident's blood pressure reading is very different from previous readings. The CNA should:",
+o:["Change the number","Report the reading to the nurse","Ignore it","Write down a normal number"],
+a:1
+},
+
+{
+q:"11. When assisting a weak resident to walk, the CNA should:",
+o:["Follow the care plan and use proper safety equipment","Pull on the resident's arms","Walk several feet ahead","Use equipment without training"],
+a:0
+},
+
+{
+q:"12. Before transferring a resident to a wheelchair, the footrests should usually be:",
+o:["Moved out of the way","Placed under the resident's feet immediately","Left pointing toward the resident","Removed permanently"],
+a:0
+},
+
+{
+q:"13. A resident begins to fall during a transfer. The CNA should:",
+o:["Try to hold the resident upright at all costs","Lower the resident safely toward the floor","Step away","Pull the resident by the wrists"],
+a:1
+},
+
+{
+q:"14. Good body mechanics include:",
+o:["Keeping the load close to the body","Twisting while lifting","Bending from the waist","Keeping feet together"],
+a:0
+},
+
+{
+q:"15. To help prevent aspiration while eating, a resident should be:",
+o:["Lying flat","Sitting upright","Lying on the stomach","Placed with head lower than feet"],
+a:1
+},
+
+{
+q:"16. If a resident coughs repeatedly while eating, the CNA should:",
+o:["Keep feeding quickly","Stop feeding and report the problem","Give larger bites","Lay the resident flat"],
+a:1
+},
+
+{
+q:"17. A resident with hearing loss may understand better if the CNA:",
+o:["Faces the resident while speaking","Shouts into the resident's ear","Talks while turning away","Speaks with food in the mouth"],
+a:0
+},
+
+{
+q:"18. Which communication technique is best for a resident with dementia?",
+o:["Give several instructions at once","Use short, simple statements","Argue about incorrect memories","Speak very rapidly"],
+a:1
+},
+
+{
+q:"19. When a resident is angry, the CNA should:",
+o:["Listen calmly","Argue back","Walk away immediately","Tell the resident to be quiet"],
+a:0
+},
+
+{
+q:"20. A resident says, 'I am afraid I may fall.' This is:",
+o:["Objective information","Subjective information","A laboratory result","A diagnosis"],
+a:1
+},
+
+{
+q:"21. Which is objective information?",
+o:["Resident says, 'I feel cold'","Resident says, 'My head hurts'","Resident's temperature is 100.8°F","Resident says, 'I feel dizzy'"],
+a:2
+},
+
+{
+q:"22. When reporting information to the nurse, the CNA should:",
+o:["Give accurate observations","Exaggerate symptoms","Give personal opinions as facts","Leave out important changes"],
+a:0
+},
+
+{
+q:"23. If a resident speaks slowly, the CNA should:",
+o:["Finish the resident's sentences","Allow enough time for the resident to speak","Walk away","Speak for the resident"],
+a:1
+},
+
+{
+q:"24. A resident whose first language differs from the CNA's should be treated with:",
+o:["Respect and patience","Frustration","Mocking","Avoidance"],
+a:0
+},
+
+{
+q:"25. Intake includes:",
+o:["Fluids taken into the body","Urine only","Stool only","Perspiration only"],
+a:0
+},
+
+{
+q:"26. Output includes:",
+o:["Water a resident drinks","Soup eaten","Urine eliminated","Ice cream eaten"],
+a:2
+},
+
+{
+q:"27. When measuring liquid output, the CNA should:",
+o:["Estimate the amount","Measure according to facility procedure","Throw it away before measuring","Ask the resident to guess"],
+a:1
+},
+
+{
+q:"28. If a resident suddenly becomes confused, the CNA should:",
+o:["Report the change promptly","Assume it is normal aging","Ignore it","Wait several days"],
+a:0
+},
+
+{
+q:"29. Shortness of breath is:",
+o:["A change that may need immediate reporting","Always normal in older adults","Never important","Something only family should know"],
+a:0
+},
+
+{
+q:"30. A resident with diarrhea is at increased risk for:",
+o:["Dehydration","Hearing loss","Broken bones","Improved hydration"],
+a:0
+},
+
+{
+q:"31. Constipation may be helped by:",
+o:["Fluids, activity, and fiber if allowed","Keeping the resident in bed","Avoiding fluids","Ignoring bowel habits"],
+a:0
+},
+
+{
+q:"32. A resident has swelling in both ankles. The CNA should:",
+o:["Observe and report it","Diagnose heart failure","Give medication","Massage forcefully"],
+a:0
+},
+
+{
+q:"33. The best way to stop transmission of microorganisms is:",
+o:["Proper hand hygiene","Wearing perfume","Closing curtains","Turning off lights"],
+a:0
+},
+
+{
+q:"34. Gloves are required when giving:",
+o:["Perineal care","A newspaper","A clean blanket","A television remote"],
+a:0
+},
+
+{
+q:"35. After removing dirty gloves, the CNA should:",
+o:["Perform hand hygiene","Put the same gloves back on","Touch the face","Handle clean supplies immediately"],
+a:0
+},
+
+{
+q:"36. If gloves become torn during care, the CNA should:",
+o:["Continue using them","Remove them, perform hand hygiene as needed, and apply new gloves","Tape the gloves","Ignore the tear"],
+a:1
+},
+
+{
+q:"37. When washing hands with soap and water, the CNA should:",
+o:["Clean all surfaces of the hands","Wash only the palms","Touch the sink afterward","Skip drying"],
+a:0
+},
+
+{
+q:"38. A CNA should place used disposable gloves:",
+o:["In the proper waste container","On the bedside table","In a pocket","In the clean linen cart"],
+a:0
+},
+
+{
+q:"39. When removing soiled linens from a bed, the CNA should:",
+o:["Avoid shaking them","Shake them to remove debris","Place them on the floor","Hold them against the uniform"],
+a:0
+},
+
+{
+q:"40. Standard precautions are based on the idea that:",
+o:["Blood and certain body fluids may carry infection","Only sick-looking residents spread germs","Gloves replace handwashing","Only nurses need infection control"],
+a:0
+},
+
+{
+q:"41. When cleaning the female perineal area, strokes should move:",
+o:["Front to back","Back to front","Side to side repeatedly","From anus toward urethra"],
+a:0
+},
+
+{
+q:"42. A clean part of the washcloth should be used:",
+o:["For each perineal cleansing stroke","Only once for the whole bath","Only for the resident's hands","Never during perineal care"],
+a:0
+},
+
+{
+q:"43. A resident is on contact precautions. The CNA should:",
+o:["Follow posted isolation instructions","Ignore the precautions","Use the same PPE between residents","Remove precautions without an order"],
+a:0
+},
+
+{
+q:"44. A resident with depression says, 'Nothing matters anymore.' The CNA should:",
+o:["Take the statement seriously and report it","Laugh","Tell the resident to cheer up","Ignore it"],
+a:0
+},
+
+{
+q:"45. A resident becomes frightened during care. The CNA should:",
+o:["Explain what is happening and speak calmly","Rush through the care","Threaten the resident","Leave without explanation"],
+a:0
+},
+
+{
+q:"46. If a resident is grieving, a helpful response is to:",
+o:["Allow the resident to express feelings","Tell the resident to stop crying","Change the subject","Say the loss is not important"],
+a:0
+},
+
+{
+q:"47. A resident with dementia is searching for a deceased spouse. The CNA should:",
+o:["Respond calmly and redirect gently","Argue that the spouse is dead","Laugh at the resident","Restrain the resident"],
+a:0
+},
+
+{
+q:"48. During personal care, privacy is provided by:",
+o:["Closing the door or curtain","Leaving the resident uncovered","Allowing visitors to watch","Discussing the resident loudly"],
+a:0
+},
+
+{
+q:"49. When giving a bed bath, the CNA should wash:",
+o:["From cleaner areas toward dirtier areas","The perineal area first with the same cloth","All areas with dirty water","Without changing water when necessary"],
+a:0
+},
+
+{
+q:"50. When providing oral care to an unconscious resident, the CNA should:",
+o:["Use positioning that reduces aspiration risk","Pour large amounts of water into the mouth","Leave the resident flat on the back","Skip oral care"],
+a:0
+},
+
+{
+q:"51. Dentures should be handled carefully because:",
+o:["They may break if dropped","They cannot be cleaned","They belong to the facility","They should always stay in the mouth"],
+a:0
+},
+
+{
+q:"52. A resident with a weak right arm should generally be dressed:",
+o:["Right arm first","Left arm first","Both arms at once","Without using the weak arm"],
+a:0
+},
+
+{
+q:"53. When undressing that same resident, clothing is generally removed from:",
+o:["The strong side first","The weak side first","Both arms simultaneously","The legs only"],
+a:0
+},
+
+{
+q:"54. A resident's right to privacy includes:",
+o:["Keeping health information confidential","Posting medical information publicly","Sharing information with friends","Discussing care in elevators"],
+a:0
+},
+
+{
+q:"55. If a resident wishes to make a complaint, the CNA should:",
+o:["Allow the resident to express concerns without retaliation","Threaten the resident","Ignore the complaint","Tell other residents about it"],
+a:0
+},
+
+{
+q:"56. A resident has the right to refuse:",
+o:["Care or treatment","All safety rules for employees","The rights of other residents","Facility emergency procedures"],
+a:0
+},
+
+{
+q:"57. Before beginning personal care, the CNA should:",
+o:["Explain the procedure to the resident","Begin without speaking","Remove all covers immediately","Invite visitors to watch"],
+a:0
+},
+
+{
+q:"58. A CNA may accept an assignment when:",
+o:["It is within the CNA's scope and training","It requires diagnosing disease","It requires prescribing medicine","It involves changing a doctor's order"],
+a:0
+},
+
+{
+q:"59. If a CNA makes an error during care, the CNA should:",
+o:["Report it according to facility policy","Hide it","Blame the resident","Change the record"],
+a:0
+},
+
+{
+q:"60. If the CNA suspects neglect or abuse, the CNA should:",
+o:["Report it immediately through proper channels","Investigate alone for several weeks","Keep it secret","Ask other residents to handle it"],
+a:0
+},
+
+{
+q:"61. A CNA is asked to give a medication. The CNA should:",
+o:["Follow state law, training, and facility scope; standard CNA duties generally do not include giving medications","Give any medication requested","Guess the dosage","Borrow another resident's medicine"],
+a:0
+},
+
+{
+q:"62. A resident's condition becomes worse while the CNA is providing care. The CNA should:",
+o:["Notify the nurse promptly","Finish all other rooms first","Wait until the next shift","Document only and tell no one"],
+a:0
+},
+
+{
+q:"63. Before leaving a resident's room, the CNA should ensure:",
+o:["Call light is within reach","The bed is at its highest position","The floor is wet","The resident's belongings are out of reach"],
+a:0
+},
+
+{
+q:"64. For a resident at risk for falls, the bed should generally be:",
+o:["In the lowest safe position","At maximum height","Unlocked","Moved far from the call light"],
+a:0
+},
+
+{
+q:"65. A CNA notices water spilled beside the bed. The safest action is to:",
+o:["Clean or secure the area immediately","Ignore it","Place a towel over it and leave","Tell the resident to avoid it"],
+a:0
+},
+
+{
+q:"66. A frayed electrical cord should be:",
+o:["Removed from use and reported","Used carefully","Covered with a blanket","Placed near water"],
+a:0
+},
+
+{
+q:"67. If a fire starts in a resident's room, the CNA should:",
+o:["Follow the facility fire emergency plan","Hide the fire","Use an elevator without instruction","Open oxygen valves"],
+a:0
+},
+
+{
+q:"68. Oxygen should be kept away from:",
+o:["Open flames and smoking","Water pitchers","Bed linens","Wheelchairs"],
+a:0
+},
+
+{
+q:"69. Before helping a resident walk, the CNA should ensure:",
+o:["The resident has safe, nonskid footwear","The resident wears only socks on a slippery floor","The floor is cluttered","The call light is hidden"],
+a:0
+},
+
+{
+q:"70. The most important reason for using a call light is to:",
+o:["Allow the resident to request help safely","Keep the resident busy","Replace CNA rounds","Prevent the resident from speaking"],
+a:0
+}
+
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item,index)=>{
+  const div=document.createElement("div");
+  div.className="question";
+
+  let html=`<p>${item.q}</p>`;
+
+  item.o.forEach((choice,i)=>{
+    html+=`
+    <label>
+      <input type="radio"
+      name="q${index}"
+      value="${i}"
+      onchange="updateProgress()">
+      ${String.fromCharCode(65+i)}. ${choice}
+    </label>`;
+  });
+
+  div.innerHTML=html;
+  form.appendChild(div);
+});
+
+function updateProgress(){
+  let answered=0;
+
+  questions.forEach((item,index)=>{
+    if(document.querySelector(
+      `input[name="q${index}"]:checked`
+    )){
+      answered++;
+    }
+  });
+
+  document.getElementById("progressBar").style.width=
+  ((answered/questions.length)*100)+"%";
+}
+
+function submitTest(){
+
+  let score=0;
+  let reviewHTML="";
+
+  questions.forEach((item,index)=>{
+
+    const selected=document.querySelector(
+      `input[name="q${index}"]:checked`
+    );
+
+    if(!selected){
+      reviewHTML+=`
+      <div class="incorrect">
+      <strong>${item.q}</strong><br>
+      Not answered.<br>
+      Correct answer:
+      ${String.fromCharCode(65+item.a)}.
+      ${item.o[item.a]}
+      </div>`;
+      return;
+    }
+
+    const answer=parseInt(selected.value);
+
+    if(answer===item.a){
+      score++;
+    }else{
+      reviewHTML+=`
+      <div class="incorrect">
+      <strong>${item.q}</strong><br>
+      Your answer:
+      ${String.fromCharCode(65+answer)}.
+      ${item.o[answer]}<br>
+      Correct answer:
+      ${String.fromCharCode(65+item.a)}.
+      ${item.o[item.a]}
+      </div>`;
+    }
+
+  });
+
+  const percent=((score/70)*100).toFixed(1);
+  const passed=score>=52;
+
+  document.getElementById("result").innerHTML=
+  `${passed?"✅ PASS":"❌ NOT PASSED"}<br>
+  Score: ${score}/70 (${percent}%)<br>
+  ${passed
+    ?"You passed the 73% requirement."
+    :"You need at least 52 correct to pass."}`;
+
+  if(reviewHTML===""){
+    reviewHTML=`
+    <div class="correct">
+    Excellent! You answered every question correctly.
+    </div>`;
+  }
+
+  document.getElementById("review").innerHTML=
+  "<h2>Review Missed Questions</h2>"+reviewHTML;
+
+  document.getElementById("retakeButton").style.display="block";
+
+  document.getElementById("result")
+  .scrollIntoView({behavior:"smooth"});
+}
+
+function retakeTest(){
+  form.reset();
+  document.getElementById("result").innerHTML="";
+  document.getElementById("review").innerHTML="";
+  document.getElementById("retakeButton").style.display="none";
+  document.getElementById("progressBar").style.width="0%";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
